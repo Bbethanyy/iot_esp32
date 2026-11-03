@@ -18,13 +18,13 @@ The ESP32 acts as the main controller and interfaces with environmental sensors 
 
 
 
-\- \*\*Temperature\*\*
+- **Temperature**
 
-\- \*\*Relative humidity\*\*
+- **Relative humidity**
 
-\- \*\*Atmospheric pressure\*\*
+- **Atmospheric pressure**
 
-\- \*\*Ambient light intensity\*\*
+- **Ambient light intensity**
 
 
 
