@@ -1,4 +1,4 @@
-\# ESP32 IoT Environmental Monitoring System
+# ESP32 IoT Environmental Monitoring System
 
 
 
@@ -6,7 +6,7 @@ An IoT environmental monitoring system developed using an \*\*ESP32 microcontrol
 
 
 
-\## 1. Project Overview
+## 1. Project Overview
 
 
 
@@ -36,7 +36,7 @@ The project also explores the concepts of \*\*Smart Transducer Interface Modules
 
 
 
-\## 2. Objectives
+## 2. Objectives
 
 
 
@@ -60,7 +60,7 @@ The main objectives are:
 
 
 
-\## 3. Hardware Components
+## 3. Hardware Components
 
 
 
@@ -80,19 +80,19 @@ The main objectives are:
 
 
 
-\### Communication interfaces
+### Communication interfaces
 
 
 
-\- \*\*I2C:\*\* Used to communicate with the BME280 and BH1750 sensors.
+- \*\*I2C:\*\* Used to communicate with the BME280 and BH1750 sensors.
 
-\- \*\*Wi-Fi:\*\* Planned wireless communication interface.
+- \*\*Wi-Fi:\*\* Planned wireless communication interface.
 
-\- \*\*TCP/IP:\*\* Planned data exchange between the ESP32 and an external computer.
+- \*\*TCP/IP:\*\* Planned data exchange between the ESP32 and an external computer.
 
 
 
-\### I2C Pin Configuration
+### I2C Pin Configuration
 
 
 
@@ -110,21 +110,21 @@ Both environmental sensors are intended to share the same I2C bus.
 
 
 
-\## 4. Software and Development Tools
+## 4. Software and Development Tools
 
 
 
-\- \*\*MicroPython:\*\* Programming language and firmware environment.
+- \*\*MicroPython:\*\* Programming language and firmware environment.
 
-\- \*\*uPyCraft IDE:\*\* Development, execution and debugging of MicroPython programs.
+- \*\*uPyCraft IDE:\*\* Development, execution and debugging of MicroPython programs.
 
-\- \*\*Git:\*\* Version control.
+- \*\*Git:\*\* Version control.
 
-\- \*\*GitHub:\*\* Source code hosting and project documentation.
+- \*\*GitHub:\*\* Source code hosting and project documentation.
 
 
 
-\## 5. System Architecture
+## 5. System Architecture
 
 
 
@@ -132,7 +132,7 @@ The project follows a simplified STIM/NCAP architecture inspired by IEEE 1451.
 
 
 
-\### STIM – Smart Transducer Interface Module
+### STIM – Smart Transducer Interface Module
 
 
 
@@ -140,19 +140,18 @@ The ESP32 acts as the STIM. Its responsibilities include:
 
 
 
-\- Acquiring measurements from connected sensors.
+- Acquiring measurements from connected sensors.
 
-\- Managing sensor data.
+- Managing sensor data.
 
-\- Providing a local user interface.
+- Providing a local user interface.
 
-\- Responding to external requests.
+- Responding to external requests.
 
-\- Providing transducer information through TEDS structures.
+- Providing transducer information through TEDS structures.
 
 
-
-\### NCAP – Network Capable Application Processor
+### NCAP – Network Capable Application Processor
 
 
 
@@ -164,7 +163,7 @@ This approach allows the NCAP functionality to be developed in software without 
 
 
 
-\## 6. Project Structure
+## 6. Project Structure
 
 
 
@@ -222,53 +221,53 @@ The `experiments/` directory contains individual hardware tests and prototypes. 
 
 
 
-\## 7. Development Progress
+## 7. Development Progress
 
 
 
-\### Completed
+### Completed
 
 
 
-\- \[x] ESP32 development environment configured.
+- \[x] ESP32 development environment configured.
 
-\- \[x] MicroPython development using uPyCraft.
+- \[x] MicroPython development using uPyCraft.
 
-\- \[x] Git repository initialized.
+- \[x] Git repository initialized.
 
-\- \[x] BH1750 sensor successfully tested.
+- \[x] BH1750 sensor successfully tested.
 
-\- \[x] BME280 sensor successfully tested.
+- \[x] BME280 sensor successfully tested.
 
-\- \[x] I2C communication configured using GPIO 21 (SDA) and GPIO 22 (SCL).
+- \[x] I2C communication configured using GPIO 21 (SDA) and GPIO 22 (SCL).
 
-\- \[ ] Integrated application reading both sensors simultaneously.
-
-
-
-\### Planned
+- \[ ] Integrated application reading both sensors simultaneously.
 
 
 
-\- \[ ] Integrate all sensor measurements into `main.py`.
-
-\- \[ ] Integrate the display and physical controls.
-
-\- \[ ] Establish Wi-Fi connectivity.
-
-\- \[ ] Implement TCP server on the ESP32.
-
-\- \[ ] Develop the external NCAP client..
-
-\- \[ ] Implement Meta-TEDS and Channel-TEDS.
-
-\- \[ ] Implement the required communication commands.
-
-\- \[ ] Perform system integration and validation.
+### Planned
 
 
 
-\## 8. Development Roadmap
+- \[ ] Integrate all sensor measurements into `main.py`.
+
+- \[ ] Integrate the display and physical controls.
+
+- \[ ] Establish Wi-Fi connectivity.
+
+- \[ ] Implement TCP server on the ESP32.
+
+- \[ ] Develop the external NCAP client..
+
+- \[ ] Implement Meta-TEDS and Channel-TEDS.
+
+- \[ ] Implement the required communication commands.
+
+- \[ ] Perform system integration and validation.
+
+
+
+## 8. Development Roadmap
 
 
 
@@ -292,11 +291,11 @@ The project will be developed incrementally:
 
 
 
-\## 9. Project Status
+## 9. Project Status
 
 
 
-\*\*Current stage:\*\* Hardware validation and sensor integration.
+*\*Current stage:\*\* Hardware validation and sensor integration.
 
 
 
@@ -304,7 +303,7 @@ The BH1750 and BME280 have been individually tested and successfully communicate
 
 
 
-\---
+---
 
 
 
