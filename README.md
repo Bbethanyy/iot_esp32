@@ -1,309 +1,297 @@
-# ESP32 IoT Environmental Monitoring System
+# ESP32 IoT – Environmental Monitoring System
 
+<p align="center">
+  <strong>An IoT environmental monitoring project built with ESP32 and MicroPython.</strong>
+  <br>
+  Sensor integration, OLED interface, joystick navigation and future network communication.
+</p>
 
+<p align="center">
+  <img src="https://img.shields.io/badge/Platform-ESP32-blue?logo=espressif" alt="ESP32">
+  <img src="https://img.shields.io/badge/Language-MicroPython-green" alt="MicroPython">
+  <img src="https://img.shields.io/badge/Status-In%20Development-orange" alt="In Development">
+</p>
 
-An IoT environmental monitoring system developed using an \*\*ESP32 microcontroller and MicroPython\*\*. The project combines environmental sensors, local data visualization and wireless communication, with the aim of implementing a simplified smart transducer architecture inspired by the IEEE 1451 standard.
+---
 
+## 1. Overview
 
+This project focuses on developing an **IoT Environmental Monitoring System** using an ESP32 microcontroller programmed with MicroPython.
 
-## 1. Project Overview
+The system collects environmental measurements using digital sensors and displays the information on an OLED screen. A joystick provides a simple interactive interface to navigate through different sections of the device.
 
+The project is being developed progressively, starting with sensor integration and local user interaction, with the goal of implementing Wi-Fi communication and an IEEE 1451-inspired STIM/NCAP architecture.
 
+### Main objectives
 
-The goal of this project is to develop an embedded environmental monitoring system capable of collecting, processing and communicating real-world measurements.
+- Acquire environmental data from multiple sensors.
+- Display real-time measurements on an OLED screen.
+- Develop an interactive menu controlled by a joystick.
+- Monitor ESP32 system resources.
+- Implement Wi-Fi and TCP/IP communication.
+- Explore the IEEE 1451 smart transducer architecture, including TEDS.
 
+---
 
+## 2. Hardware
 
-The ESP32 acts as the main controller and interfaces with environmental sensors to measure:
-
-
-
-- **Temperature**
-
-- **Relative humidity**
-
-- **Atmospheric pressure**
-
-- **Ambient light intensity**
-
-
-
-The collected measurements will be displayed locally and made available to an external client through wireless communication.
-
-
-
-The project also explores the concepts of \*\*Smart Transducer Interface Modules (STIM)\*\*, \*\*Network Capable Application Processors (NCAP)\*\* and \*\*Transducer Electronic Data Sheets (TEDS)\*\*, following the architecture introduced in the project documentation.
-
-
-
-## 2. Objectives
-
-
-
-The main objectives are:
-
-
-
-1\. \*\*Sensor integration:\*\* Connect and communicate with multiple environmental sensors using the I2C protocol.
-
-2\. \*\*Data acquisition:\*\* Read and process temperature, humidity, pressure and light measurements.
-
-3\. \*\*Local interface:\*\* Use the display and physical controls to visualize measurements and interact with the system.
-
-4\. \*\*Wireless connectivity:\*\* Establish Wi-Fi communication between the ESP32 and an external computer.
-
-5\. \*\*TCP communication:\*\* Implement a client-server communication system for exchanging sensor data and commands.
-
-6\. \*\*TEDS implementation:\*\* Explore and implement Meta-TEDS and Channel-TEDS structures to describe the connected transducers.
-
-7\. \*\*STIM/NCAP architecture:\*\* Develop a simplified implementation of the smart transducer communication model.
-
-
-
-## 3. Hardware Components
-
-
+The current prototype is based on the following components:
 
 | Component | Description |
-
 |---|---|
+| ESP32-WROOM-32D | Main microcontroller |
+| BME280 | Temperature, humidity and pressure sensor |
+| BH1750 | Digital ambient light sensor |
+| DFR0507 | OLED display and joystick interface |
+| OLED 128 × 64 | Monochrome display |
+| Joystick | Menu navigation and selection |
 
-| ESP32-WROOM-32D | Main microcontroller and processing unit |
+### Hardware connections
 
-| UB-Domòtica CPU Board | Development board hosting the ESP32 and onboard BH1750 sensor |
-
-| BME280 | External sensor for temperature, relative humidity and atmospheric pressure |
-
-| BH1750 | Ambient light intensity sensor |
-
-| DFR0507 Display Board | Display and physical controls (joystick and buttons) |
-
-
-
-### Communication interfaces
-
-
-
-- \*\*I2C:\*\* Used to communicate with the BME280 and BH1750 sensors.
-
-- \*\*Wi-Fi:\*\* Planned wireless communication interface.
-
-- \*\*TCP/IP:\*\* Planned data exchange between the ESP32 and an external computer.
-
-
-
-### I2C Pin Configuration
-
-
+The sensors and OLED display share the same I²C bus.
 
 | Signal | ESP32 GPIO |
+|---|---:|
+| I²C SDA | GPIO 21 |
+| I²C SCL | GPIO 22 |
+| Joystick ADC | GPIO 34 |
+| Button A | GPIO 4 |
+| Button B | GPIO 0 |
 
+### I²C device addresses
+
+| Device | I²C address |
 |---|---|
+| BH1750 | `0x23` |
+| OLED display | `0x3C` |
+| BME280 | `0x77` |
 
-| SDA | GPIO 21 |
+The joystick uses an analog resistor-ladder interface connected to GPIO 34. Different joystick positions produce different ADC values.
 
-| SCL | GPIO 22 |
+---
 
+## 3. Current Features
 
+### Environmental Monitoring
 
-Both environmental sensors are intended to share the same I2C bus.
+The system currently reads four environmental measurements:
 
+- Temperature (°C)
+- Relative humidity (%)
+- Atmospheric pressure (hPa)
+- Ambient light intensity (lux)
 
+**Sensors used:**
+- BME280: temperature, humidity and pressure.
+- BH1750: ambient light intensity.
+
+Measurements are periodically refreshed and can be displayed through the OLED interface or printed to the serial console.
+
+### OLED User Interface
+
+The OLED display provides a welcome screen and a navigable main menu.
+
+The welcome screen displays:
+
+```text
+ESP32 IoT
+
+Hello there!
+
+Welcome to my IoT project
+
+by Bethany Q.
+```
+
+After the welcome screen, the main menu becomes available.
+
+### Main Menu
+
+The interface currently contains four sections:
+
+| Section | Current functionality |
+|---|---|
+| Environment | Displays live environmental measurements |
+| Games | Placeholder for the Snake game |
+| System Monitor | Placeholder for system information |
+| Settings | Placeholder for device configuration |
+
+### Joystick Navigation
+
+The joystick allows the user to:
+
+- Move up and down through menu options.
+- Select a section using the joystick's central press.
+- Return to the main menu using another central press.
+
+### Standalone Programs
+
+Two independent programs are currently available:
+
+- `main.py`: Environmental monitoring with serial output and OLED display.
+- `menu.py`: Welcome screen, interactive menu and environmental data submenu.
+
+Both programs use the same sensor drivers and hardware configuration.
+
+---
 
 ## 4. Software and Development Tools
 
-
-
-- \*\*MicroPython:\*\* Programming language and firmware environment.
-
-- \*\*uPyCraft IDE:\*\* Development, execution and debugging of MicroPython programs.
-
-- \*\*Git:\*\* Version control.
-
-- \*\*GitHub:\*\* Source code hosting and project documentation.
-
-
-
-## 5. System Architecture
-
-
-
-The project follows a simplified STIM/NCAP architecture inspired by IEEE 1451.
-
-
-
-### STIM – Smart Transducer Interface Module
-
-
-
-The ESP32 acts as the STIM. Its responsibilities include:
-
-
-
-- Acquiring measurements from connected sensors.
-
-- Managing sensor data.
-
-- Providing a local user interface.
-
-- Responding to external requests.
-
-- Providing transducer information through TEDS structures.
-
-
-### NCAP – Network Capable Application Processor
-
-
-
-An external computer is planned to act as the NCAP client. It will communicate with the ESP32 over Wi-Fi and TCP/IP to request measurements and exchange commands.
-
-
-
-This approach allows the NCAP functionality to be developed in software without requiring a second physical ESP32 board.
-
-
-
-## 6. Project Structure
-
-
-
-```text
-
-iot\\\_esp32/
-
-│
-
-├── experiments/
-
-│   ├── 01\\\_bme280/
-
-│   │   ├── test\\\_bme280.py
-
-│   │   └── README.md
-
-│   │
-
-│   └── 02\\\_bh1750/
-
-│       ├── test\\\_bh1750.py
-
-│       └── README.md
-
-│
-
-├── src/
-
-│   ├── main.py
-
-│   ├── sensors/
-
-│   ├── communication/
-
-│   ├── teds/
-
-│   └── interface/
-
-│
-
-├── tests/
-
-│
-
-├── README.md
-
-└── .gitignore
-
-```
-
-
-
-The `experiments/` directory contains individual hardware tests and prototypes. The `src/` directory is intended for the integrated application and its modules.
-
-
-
-## 7. Development Progress
-
-
-
-### Completed
-
-
-
-- \[x] ESP32 development environment configured.
-
-- \[x] MicroPython development using uPyCraft.
-
-- \[x] Git repository initialized.
-
-- \[x] BH1750 sensor successfully tested.
-
-- \[x] BME280 sensor successfully tested.
-
-- \[x] I2C communication configured using GPIO 21 (SDA) and GPIO 22 (SCL).
-
-- \[ ] Integrated application reading both sensors simultaneously.
-
-
-
-### Planned
-
-
-
-- \[ ] Integrate all sensor measurements into `main.py`.
-
-- \[ ] Integrate the display and physical controls.
-
-- \[ ] Establish Wi-Fi connectivity.
-
-- \[ ] Implement TCP server on the ESP32.
-
-- \[ ] Develop the external NCAP client..
-
-- \[ ] Implement Meta-TEDS and Channel-TEDS.
-
-- \[ ] Implement the required communication commands.
-
-- \[ ] Perform system integration and validation.
-
-
-
-## 8. Development Roadmap
-
-
-
-The project will be developed incrementally:
-
-
-
-1\. \*\*Hardware validation:\*\* Test each sensor independently and verify communication.
-
-2\. \*\*Sensor integration:\*\* Combine sensor readings into a single application.
-
-3\. \*\*Local interface:\*\* Display measurements and implement physical interaction.
-
-4\. \*\*Wireless communication:\*\* Configure Wi-Fi and establish TCP connections.
-
-5\. \*\*TEDS implementation:\*\* Define and manage transducer identification and configuration data.
-
-6\. \*\*STIM/NCAP communication:\*\* Implement the communication protocol and exchange data with the external client.
-
-7\. \*\*Testing and documentation:\*\* Validate the complete system and document the results.
-
-
-
-## 9. Project Status
-
-
-
-*\*Current stage:\*\* Hardware validation and sensor integration.
-
-
-
-The BH1750 and BME280 have been individually tested and successfully communicate with the ESP32 using I2C and MicroPython. The next step is to integrate both sensors into the main application.
-
-
+| Tool / Technology | Purpose |
+|---|---|
+| MicroPython | Firmware and programming language |
+| uPyCraft V1.1 | MicroPython IDE |
+| Git | Version control |
+| GitHub | Source code repository |
+| I²C | Communication with environmental sensors and OLED |
+| ADC | Reading joystick positions |
+| SSD1306 driver | OLED display control |
+
+### Python modules
+
+- `BME280.py`: BME280 sensor driver.
+- `BH1750.py`: BH1750 sensor driver.
+- `ssd1306.py`: OLED display driver.
 
 ---
+
+## 5. Project Structure
+
+```text
+iot_esp32/
+│
+├── README.md
+│
+├── docs/
+│   ├── AmI Documentacio Practiques ESP32(2019).pdf
+│   ├── Ejemplo Transferencias TCP micropython.pdf
+│   ├── TEDS_Domotica.pdf
+│   └── Transferencia_Domotica_v2.pdf
+│
+└── workSpace/
+    │
+    ├── main.py
+    ├── menu.py
+    │
+    ├── test_bme280.py
+    ├── test_bh1750.py
+    └── test_joystick.py
+    │
+    ├── BME280.py
+    ├── BH1750.py
+    └── ssd1306.py
+```
+
+The `workSpace` directory contains the original MicroPython source files developed for the project. These files are maintained on the computer and uploaded to the ESP32 when required.
+
+The ESP32 filesystem (`device`) is used for deployment and execution, rather than as the main location for source code development.
+
+---
+
+## 6. Getting Started
+
+### Requirements
+
+- ESP32 development board.
+- MicroPython firmware installed on the ESP32.
+- uPyCraft IDE or another MicroPython-compatible editor.
+- BME280 sensor.
+- BH1750 sensor.
+- OLED display and joystick interface.
+- USB cable and appropriate USB-to-UART driver.
+
+### Installation
+
+1. Clone or download this repository:
+
+```bash
+git clone <YOUR_REPOSITORY_URL>
+```
+
+2. Connect the ESP32 to your computer.
+
+3. Open the project using uPyCraft.
+
+4. Upload the required Python files and sensor drivers to the ESP32.
+
+5. Make sure the hardware connections and I²C addresses match your setup.
+
+### Running the programs
+
+To run the environmental monitoring program:
+
+```python
+exec(open('main.py').read(), globals())
+```
+
+To run the interactive menu:
+
+```python
+exec(open('menu.py').read(), globals())
+```
+
+The two programs are independent. Run only one at a time.
+
+---
+
+## 7. Development Roadmap
+
+The project is being developed in several stages.
+
+- [x] ESP32 and MicroPython environment setup.
+- [x] BME280 sensor integration.
+- [x] BH1750 sensor integration.
+- [x] I²C communication and device detection.
+- [x] OLED display integration.
+- [x] Joystick analog reading and direction detection.
+- [x] Interactive main menu.
+- [x] Welcome screen.
+- [x] Environmental data submenu with live measurements.
+- [ ] Custom pixel-art icons for the OLED interface.
+- [ ] Snake game implementation.
+- [ ] System monitor implementation.
+- [ ] Settings menu.
+- [ ] Wi-Fi connectivity.
+- [ ] TCP/IP communication between ESP32 and a PC.
+- [ ] STIM/NCAP architecture.
+- [ ] IEEE 1451-inspired TEDS implementation.
+
+---
+
+## 8. Future Architecture: STIM and NCAP
+
+One of the main goals is to extend the project towards an IoT architecture inspired by **IEEE 1451**.
+
+The planned architecture consists of:
+
+- **STIM (Smart Transducer Interface Module):** the ESP32, responsible for collecting sensor data and providing access to its transducer channels.
+- **NCAP (Network Capable Application Processor):** a PC application that communicates with the ESP32 over a network.
+
+The communication layer is planned to use Wi-Fi and TCP sockets.
+
+The project will also explore the implementation of:
+
+- Meta-TEDS.
+- Channel-TEDS.
+- Sensor channel identification.
+- Data read and write commands.
+- Trigger-related commands.
+
+These features are planned development objectives and are not yet implemented.
+
+---
+
+## 9. Repository
+
+This repository documents the development of the ESP32 IoT project, including source code, hardware tests and technical documentation.
+
+**Project status:** Active development.
+
+---
+
+*Developed by Bethany Quintero*  
+*Electronics and Telecommunications Engineering*
+
 
 
 
